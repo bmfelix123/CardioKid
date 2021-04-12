@@ -1,0 +1,28 @@
+import scipy
+import heartpy as hp
+from scipy import signal
+from scipy.signal import butter, iirnotch, lfilter
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import pylab
+
+
+rawdata = hp.get_data('ECG2.csv')
+signal = rawdata
+fs = 350
+
+filter1= heartpy.filtering.smooth_signal(rawdata, sample_rate = 40, window_length=None, polyorder=3)
+plt.figure(figsize=(20,10))
+plt.subplot(211)
+plt.plot(range(len(signal)), signal)
+pylab.xlim(2000,2500)
+pylab.ylim(450,575)
+plt.title('Original Signal')
+plt.subplot(212)
+
+plt.plot(range(len(filter1)),filter1)
+pylab.xlim(2000,2500)
+pylab.ylim(450,575)
+plt.title('Filtered Signal')
+plt.show()
